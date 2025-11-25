@@ -5,7 +5,7 @@ from math import factorial
 import numpy as np
 import re
 
-FUNCTIONS = r"(sin|cos|tan|sec|csc|cot|log|ln|exp)"
+FUNCTIONS = r"(sin|cos|tan|sec|csc|cot|log|ln|e)"
 expr=input("Enter a function eg: sin(x), x**2, e**(x+1), (2x+1)**1/2 ...  \n f(x): ")
 def convert_to_numpy(expr):
     expr = expr.replace("sin", "np.sin")
@@ -75,15 +75,16 @@ def taylor_polynominal(func,a,n):
    return P
         
 
-n=6
+n=3
 a=0
-x=np.linspace(-2,2,200)
+x=np.linspace(-2,2,1000)
+x_taylor=np.linspace(-2,2,1000)
 y=func(x)
 P5=taylor_polynominal(func,a,n)
 taylor_y=[P5(i) for i in x]
 
-plt.scatter(x,taylor_y, label=f"order 5 Taylor-sereis")
-plt.plot(x,y, label={fix_functions(expr)},color="Red")
+plt.plot(x_taylor,taylor_y, label=f"order {n} Taylor-sereis",color="green")
+plt.plot(x,y, label=fix_functions(expr),color="red",linewidth=0.5)
 plt.axhline(0,color="Black")
 plt.axvline(0,color="Black")
 plt.grid(True)
