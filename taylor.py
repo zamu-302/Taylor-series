@@ -1,4 +1,5 @@
 from matplotlib import pyplot as plt
+import math 
 from math import factorial
 import numpy as np
 import re
@@ -44,7 +45,7 @@ def fix_functions(expr):
 def make_func(expr):
     expr=fix_functions(expr)
     def f(x):
-        return eval(expr,{"np":np,"x":x})
+        return eval(expr,{"np":np,"x":x,"e":math.e})
     return f
 
 
@@ -87,20 +88,22 @@ x=np.linspace(-2,2,1000) # the domain covered by both
 
 y=func(x) # returns the y at the domain x
 
-P5=taylor_polynominal(func,a,n) # the tyler polynomial
 
-taylor_y=[P5(i) for i in x] #returns taylors y at the given domain
 
+for i in range(n+1):
+    
+    P5=taylor_polynominal(func,a,i) # the tyler polynomial
+    taylor_y=[P5(j) for j in x] #returns taylors y at the given domain
 
 #ploting the Taylor and normal equation Together
-plt.plot(x,taylor_y, label=f"order {n} Taylor-sereis",color="green")
-plt.plot(x,y, label=fix_functions(expr),color="red",linewidth=0.5)
-plt.axhline(0,color="Black")
-plt.axvline(0,color="Black")
-plt.grid(True)
-plt.legend()
-plt.show()
-    
+    plt.plot(x,taylor_y, label=f"order {i} Taylor-sereis",color="green")
+    plt.plot(x,y, label=fix_functions(expr),color="red",linewidth=0.5)
+    plt.axhline(0,color="Black")
+    plt.axvline(0,color="Black")
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+        
 
 
 
